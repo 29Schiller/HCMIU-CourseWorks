@@ -1,0 +1,6 @@
+package SudokuGame;
+
+interface SudokuCommand {
+    void execute();
+    void undo();
+}

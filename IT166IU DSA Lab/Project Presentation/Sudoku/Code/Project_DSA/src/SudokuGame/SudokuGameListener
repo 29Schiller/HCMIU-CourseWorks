@@ -1,0 +1,6 @@
+package SudokuGame;
+
+interface SudokuGameListener {
+    default void onGameStateChanged(SudokuGameModel.GameState newState) {}
+    default void onCellChanged(int row, int col, int newValue) {}
+}

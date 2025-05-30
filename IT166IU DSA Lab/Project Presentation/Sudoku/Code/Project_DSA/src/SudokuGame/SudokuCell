@@ -1,0 +1,69 @@
+package SudokuGame;
+
+class SudokuCell implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    private final int row;
+    private final int col;
+    private int value;
+    private boolean isFixed;
+    private boolean isHighlighted;
+    private boolean hasError;
+    private boolean showingHint;
+    private boolean[] possibleValues;
+
+    public SudokuCell(int row, int col) {
+        this.row = row;
+        this.col = col;
+        this.value = 0;
+        this.isFixed = false;
+        this.isHighlighted = false;
+        this.hasError = false;
+        this.showingHint = false;
+        this.possibleValues = new boolean[10];
+        for (int i = 1; i <= 9; i++) {
+            possibleValues[i] = true;
+        }
+    }
+    
+    public SudokuCell(SudokuCell other) {
+        this.row = other.row;
+        this.col = other.col;
+        this.value = other.value;
+        this.isFixed = other.isFixed;
+        this.isHighlighted = other.isHighlighted;
+        this.hasError = other.hasError;
+        this.showingHint = other.showingHint;
+        this.possibleValues = other.possibleValues.clone();
+    }
+
+    // Getters
+    public int getRow() { return row; }
+    public int getCol() { return col; }
+    public int getValue() { return value; }
+    public boolean isFixed() { return isFixed; }
+    public boolean isEmpty() { return value == 0; }
+    public boolean isHighlighted() { return isHighlighted; }
+    public boolean hasError() { return hasError; }
+    public boolean isShowingHint() { return showingHint; }
+    
+    // Setters
+    public void setValue(int value) {
+        if (value >= 0 && value <= 9 && !isFixed) {
+            this.value = value;
+        }
+    }
+    
+    public void setFixed(boolean fixed) { this.isFixed = fixed; }
+    public void setHighlighted(boolean highlighted) { this.isHighlighted = highlighted; }
+    public void setError(boolean hasError) { this.hasError = hasError; }
+    public void setShowingHint(boolean showingHint) { this.showingHint = showingHint; }
+    
+    public boolean canEdit() { return !isFixed; }
+    public int getBox() { return (row / 3) * 3 + (col / 3); }
+    
+    @Override
+    public String toString() {
+        return String.format("Cell[%d,%d]=%d", row, col, value);
+    }
+}
